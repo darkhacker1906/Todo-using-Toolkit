@@ -31,7 +31,7 @@ function HomeDashBoard() {
   };
   const handleUpdate = (selectedTodoId, todoInput) => {
     if (todoInput.trim() !== "" && selectedTodoId !== null) {
-      dispatch(editTodo(selectedTodoId, todoInput));
+      dispatch(editTodo({id:selectedTodoId, data:todoInput}));
     }
     setSelectedTodoId(null);
     setIsEdit(false);

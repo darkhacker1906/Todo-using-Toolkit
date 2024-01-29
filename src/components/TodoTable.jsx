@@ -2,7 +2,8 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { MdDelete } from "react-icons/md";
 import { FaEdit } from "react-icons/fa";
-import { deleteTodo } from "../reduxToolkit/todoSlice";
+import { deleteTodo,handleCheck} from "../reduxToolkit/todoSlice";
+
 import CheckBox from "./CheckBox";
 
 function TodoTable({ setTodoInput, setIsEdit, setSelectedTodoId }) {
@@ -18,7 +19,9 @@ function TodoTable({ setTodoInput, setIsEdit, setSelectedTodoId }) {
     setIsEdit(true);
     setSelectedTodoId(todoId);
   };
-  const check_box_select = (todoId) => {};
+  const check_box_select = (todoId) => {
+    dispatch(handleCheck(todoId));
+  };
 
   return (
     <div>
@@ -36,6 +39,7 @@ function TodoTable({ setTodoInput, setIsEdit, setSelectedTodoId }) {
                   className=" flex justify-between px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                 >
                   <p className=" text-balance  truncate break-all w-[100%] flex gap-2">
+                    
                     <CheckBox
                       todoCheck={todo.checked}
                       handleCheckBox={() => check_box_select(todo.id)}
