@@ -18,10 +18,6 @@ function HomeDashBoard() {
     setTodoInput(e.target.value);
     setError("");
   };
-  // useEffect(() => {
-  //   localStorage.setItem('items', JSON.stringify(todoInput));
-  // }, [todoInput]);
-
 
   const handleSubmit = () => {
     if (todoInput.trim() == "") {
