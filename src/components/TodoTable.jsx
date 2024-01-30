@@ -2,12 +2,20 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { MdDelete } from "react-icons/md";
 import { FaEdit } from "react-icons/fa";
-import { deleteTodo,handleCheck} from "../reduxToolkit/todoSlice";
+import { deleteTodo, handleCheck } from "../reduxToolkit/todoSlice";
 
 import CheckBox from "./CheckBox";
 
 function TodoTable({ setTodoInput, setIsEdit, setSelectedTodoId }) {
-  const todoList = useSelector((state) => state.list);
+  const todoList = useSelector((state) => {
+    if (state.filterType === "completed") {
+      return state.list.filter((todo) => todo.checked);
+    } else if (state.filterType === "incomplete") {
+      return state.list.filter((todo) => !todo.checked);
+    } else {
+      return state.list;
+    }
+  });
   var dispatch = useDispatch();
 
   const handleDelete = (todoId) => {
@@ -20,12 +28,12 @@ function TodoTable({ setTodoInput, setIsEdit, setSelectedTodoId }) {
     setSelectedTodoId(todoId);
   };
   const check_box_select = (todoId) => {
-    dispatch(handleCheck(todoId));
+    dispatch(handleCheck({ id: todoId }));
   };
 
   return (
-    <div>
-      <div className="relative overflow-x-auto shadow-md sm:rounded-lg ">
+    <div className="max-h-80 overflow-y-auto">
+      <div className="relative overflow-y-auto shadow-md sm:rounded-lg ">
         <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"></thead>
           <tbody>
@@ -39,7 +47,6 @@ function TodoTable({ setTodoInput, setIsEdit, setSelectedTodoId }) {
                   className=" flex justify-between px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                 >
                   <p className=" text-balance  truncate break-all w-[100%] flex gap-2">
-                    
                     <CheckBox
                       todoCheck={todo.checked}
                       handleCheckBox={() => check_box_select(todo.id)}
@@ -49,6 +56,7 @@ function TodoTable({ setTodoInput, setIsEdit, setSelectedTodoId }) {
                   <div className="flex justify-between text-xl gap-2">
                     <MdDelete onClick={() => handleDelete(todo.id)} />
                     <FaEdit onClick={() => handleEdit(todo.id, todo.data)} />
+                    {todo.checked && <p className="text-sm">completed</p>}
                   </div>
                 </th>
               </tr>

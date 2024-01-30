@@ -1,6 +1,10 @@
 import React from "react";
 
-function InputField({ inputTextType, todoInput, handleTodoInput}) {
+function InputField({ inputTextType, todoInput, handleTodoInput, error }) {
+  const inputStyle = {
+    border: error ? "1px solid red" : "1px solid #ced4da",
+    color: error ? "red" : "#495057",
+  };
   return (
     <div>
       <input
@@ -9,7 +13,9 @@ function InputField({ inputTextType, todoInput, handleTodoInput}) {
         value={todoInput}
         placeholder="Enter your todo"
         onChange={handleTodoInput}
+        style={inputStyle}
       />
+      {error && <p className="text-red-500 text-xs italic">{error}</p>}
     </div>
   );
 }
