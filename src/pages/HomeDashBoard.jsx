@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect} from "react";
 import Button from "../components/Button";
 import InputField from "../components/InputField";
 import { useDispatch, useSelector } from "react-redux";
@@ -18,6 +18,10 @@ function HomeDashBoard() {
     setTodoInput(e.target.value);
     setError("");
   };
+  // useEffect(() => {
+  //   localStorage.setItem('items', JSON.stringify(todoInput));
+  // }, [todoInput]);
+
 
   const handleSubmit = () => {
     if (todoInput.trim() == "") {
