@@ -1,9 +1,13 @@
 import React from "react";
 
-function Button({ title,handleClick }) {
+function Button({ title, handleClick }) {
   return (
     <div>
-      <button className="bg-slate-300 hover:bg-slate-400" type="submit" onClick={handleClick}>
+      <button
+        className="bg-slate-300 hover:bg-slate-400"
+        type="submit"
+        onClick={handleClick}
+      >
         {title}
       </button>
     </div>

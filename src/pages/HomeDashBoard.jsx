@@ -3,7 +3,7 @@ import Button from "../components/Button";
 import InputField from "../components/InputField";
 import { useDispatch, useSelector } from "react-redux";
 import { editTodo } from "../reduxToolkit/todoSlice";
-import { addTodo } from "../reduxToolkit/todoSlice";
+import { addTodo, setFilter } from "../reduxToolkit/todoSlice";
 import TodoTable from "../components/TodoTable";
 
 function HomeDashBoard() {
@@ -23,15 +23,14 @@ function HomeDashBoard() {
     if (todoInput.trim() == "") {
       setError("Please enter todo");
       setTodoInput("");
-    }
-     else {
+    } else {
       dispatch(addTodo(todoInput));
       setTodoInput("");
     }
   };
   const handleUpdate = (selectedTodoId, todoInput) => {
     if (todoInput.trim() !== "" && selectedTodoId !== null) {
-      dispatch(editTodo({id:selectedTodoId, data:todoInput}));
+      dispatch(editTodo({ id: selectedTodoId, data: todoInput }));
     }
     setSelectedTodoId(null);
     setIsEdit(false);
@@ -42,8 +41,11 @@ function HomeDashBoard() {
     setIsEdit(false);
     setTodoInput("");
   };
+
   const handleFilter = (filterType) => {
+    dispatch(setFilter({ filterType }));
   };
+
   return (
     <div className="w-7/12 m-auto">
       <form onSubmit={(e) => e.preventDefault()}>
@@ -92,4 +94,3 @@ function HomeDashBoard() {
 }
 
 export default HomeDashBoard;
-

@@ -4,6 +4,7 @@ const initialState = {
   list: [],
   filterType: "all",
 };
+
 export const todoSlice = createSlice({
   name: "todo",
   initialState,
@@ -33,12 +34,18 @@ export const todoSlice = createSlice({
     handleCheck:(state,action)=>{
         const{id}=action.payload;
         const updateList=state.list.map((todo)=>
-        todo.id === id ? {...todo,checked:!checked}:todo);
+        todo.id === id ? {...todo,checked:!todo.checked}:todo);
         return{
             ...state,list:updateList,
         };
-    }
+    },
+
+    setFilter:(state,action)=>{
+      const {filterType}=action.payload;
+      state.filterType = filterType;
+      }
+
   },
 });
-export const { addTodo, deleteTodo, editTodo,handleCheck } = todoSlice.actions;
+export const { addTodo, deleteTodo, editTodo,handleCheck,setFilter } = todoSlice.actions;
 export default todoSlice.reducer;
